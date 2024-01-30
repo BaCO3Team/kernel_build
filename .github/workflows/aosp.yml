@@ -31,7 +31,7 @@ jobs:
             cd android_kernel_xiaomi_sdm710
             TgNotify "## Sakura Kernel Builder Info
             Host User: $(whoami}
-            Build Host: $(hostname -I | cut -d " " -f 2)-Kernel_Builder-Sakura.$(date +%N | cut -c 1-6)
+            Build Host: $(hostname -I | cut -d \" \" -f 2)-Kernel_Builder-Sakura.$(date +%N | cut -c 1-6)
             Branch: $(git symbolic-ref --short -q HEAD)
              
             $(git log -n 1)"
