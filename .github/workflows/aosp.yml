@@ -32,8 +32,7 @@ jobs:
             TgNotify "## Sakura Kernel Builder Info
             Host User: $(whoami}
             Build Host: $(hostname -I | cut -d \" \" -f 2)-Kernel_Builder-Sakura.$(date +%N | cut -c 1-6)
-            Branch: $(git symbolic-ref --short -q HEAD)
-             
+            Branch: $(git symbolic-ref --short -q HEAD)\n
             $(git log -n 1)"
              
       - name: Compiling Kernel
