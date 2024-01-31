@@ -7,11 +7,13 @@ jobs:
   TwilightForGrus:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Installing Dependencies
         run: |
           sudo apt update -y
-          sudo apt-get install -y zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
+          sudo apt-get install -y zip flex bison libncurses-dev gawk python3 python3-pip libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
           sudo apt clean
+          sudo pip3 install pyTelegramBotAPI noobstuffs
           echo "BUILD_TIME=$(TZ=Asia/Shanghai date +%F)" >> $GITHUB_ENV
       - name: Cloning Sources and Toolchain
         run: |
@@ -22,19 +24,10 @@ jobs:
           git clone https://github.com/Tkiliay/AnyKernel3.git
       - name: Notify
         run: |
-          TgNotify() {
-              curl -s -X POST "https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage" -d chat_id="${{ secrets.PRIV_CHAT_ID }}" \
-              -d parse_mode=Markdown \
-              -d text="${1}" \
-              -d disable_web_page_preview=true
-            }
             cd android_kernel_xiaomi_sdm710
-            echo "## Sakura Kernel Builder Info
-            Host User: $(whoami)
-            Build Host: $(hostname -I | cut -d ' ' -f 2)-Kernel_Builder-Sakura.$(date +%N | cut -c 1-6)
-            Branch: $(git symbolic-ref --short -q HEAD)
-            
-            $(git log -n 1)"
+            echo "## Sakura Kernel Builder Info\nHost User: $(whoami)\nBuild Host: $(hostname -I | cut -d ' ' -f 2)-Kernel_Builder-Sakura.$(date +%N | cut -c 1-6)\nBranch: $(git symbolic-ref --short -q HEAD)\n\n$(git log -n 1)" > ../out
+            cd ..
+            python3 post.py
       - name: Compiling Kernel
         run: |
           CLANG=~/clang/bin
