@@ -27,7 +27,7 @@ jobs:
             cd android_kernel_xiaomi_sdm710
             echo -e "#Sakura_Kernel_Builder_Info\nHost User: $(whoami)\nBuild Host: $(hostname -I | cut -d ' ' -f 2)-Kernel_Builder-Sakura.$(date +%N | cut -c 1-6)\nBranch: $(git symbolic-ref --short -q HEAD)\nBuild Time:$(date +%F_%T)\n\n$(git log -n 1)" > ../out
             cd ..
-            sed -i 's/(\\|_|\*|\[|]|\(|\)|`|~|>|#|\+|-|=|\||\{|}|\.|!)/\\\1/g' out 
+            sed -E -i 's/(\\|_|\*|\[|]|\(|\)|`|~|>|#|\+|-|=|\||\{|}|\.|!)/\\\1/g' out 
             python3 post.py
       - name: Compiling Kernel
         run: |
