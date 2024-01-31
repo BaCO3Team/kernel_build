@@ -22,11 +22,17 @@ jobs:
           git clone https://github.com/Tkiliay/AnyKernel3.git
       - name: Notify
         run: |
+          TgNotify() {
+              curl -s -X POST "https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage" -d chat_id="${{ secrets.PRIV_CHAT_ID }}" \
+              -d parse_mode=Markdown \
+              -d text="${1}" \
+              -d disable_web_page_preview=true
+            }
             cd android_kernel_xiaomi_sdm710
-            echo '## Sakura Kernel Builder Info
+            TgNotify '## Sakura Kernel Builder Info
             Host User: $(whoami)
             Build Host: $(hostname -I | cut -d " " -f 2)-Kernel_Builder-Sakura.$(date +%N | cut -c 1-6)
-            Branch: $(git symbolic-ref --short -q HEAD)\n
+            Branch: $(git symbolic-ref --short -q HEAD)
             
             $(git log -n 1)'
              
