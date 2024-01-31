@@ -25,7 +25,7 @@ jobs:
       - name: Notify
         run: |
             cd android_kernel_xiaomi_sdm710
-            echo "## Sakura Kernel Builder Info\nHost User: $(whoami)\nBuild Host: $(hostname -I | cut -d ' ' -f 2)-Kernel_Builder-Sakura.$(date +%N | cut -c 1-6)\nBranch: $(git symbolic-ref --short -q HEAD)\n\n$(git log -n 1)" > ../out
+            echo "#Sakura_Kernel_Builder_Info\nHost User: $(whoami)\nBuild Host: $(hostname -I | cut -d ' ' -f 2)-Kernel_Builder-Sakura.$(date +%N | cut -c 1-6)\nBranch: $(git symbolic-ref --short -q HEAD)\n\n$(git log -n 1)" > ../out
             cd ..
             python3 post.py
       - name: Compiling Kernel
