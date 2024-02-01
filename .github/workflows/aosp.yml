@@ -50,7 +50,7 @@ jobs:
           popd
       - name: Packaging the Kernel
         run: |
-          cp -v android_kernel_xiaomi_sdm710/out/arch/arm64/boot/Image.gz \
+          cp -v android_kernel_xiaomi_sdm710/out/arch/arm64/boot/Image \
                      AnyKernel3/
           pushd AnyKernel3
           7z a -mx9 ../Test-CI-${{ env.BUILD_TIME }}-grus-AOSP.zip *
