@@ -54,8 +54,6 @@ jobs:
         run: |
           cp -v android_kernel_xiaomi_sdm710/out/arch/arm64/boot/Image \
                      AnyKernel3/
-          cp -r android_kernel_xiaomi_sdm710/out/arch/arm64/boot/dts/qcom-legacy/sdm670 \
-                     AnyKernel3/
           pushd AnyKernel3
           7z a -mx9 ../Test-CI-${{ env.BUILD_TIME }}-grus-AOSP.zip *
           popd
